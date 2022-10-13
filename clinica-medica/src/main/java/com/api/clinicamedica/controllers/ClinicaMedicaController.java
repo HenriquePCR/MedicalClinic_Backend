@@ -28,7 +28,7 @@ public class ClinicaMedicaController {
 	    }
 	    
 	    @PostMapping
-	    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid BaseDeEnderecosDTO parkingSpotDto){
+	    public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid BaseDeEnderecosDTO baseDeEnderecoDTO){
 	        /*if(clinicaMedicaService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())){
 	            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: License Plate Car is already in use!");
 	        }
@@ -40,9 +40,11 @@ public class ClinicaMedicaController {
 	        }
 	        */
 	        BaseDeEnderecosModel baseDeEnderecosModel = new BaseDeEnderecosModel();
-	        BeanUtils.copyProperties(parkingSpotDto, baseDeEnderecosModel);
+	        BeanUtils.copyProperties(baseDeEnderecoDTO, baseDeEnderecosModel);
 	        //baseDeEnderecosModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
 	        return ResponseEntity.status(HttpStatus.CREATED).body(clinicaMedicaService.save(baseDeEnderecosModel));
 	    } 
+	    
+	    
 
 }
