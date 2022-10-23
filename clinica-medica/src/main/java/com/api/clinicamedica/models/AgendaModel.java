@@ -42,10 +42,10 @@ public class AgendaModel implements Serializable {
 	
 	@Column(name = "telefone", length = 14, nullable = true)
 	private String telefone;
-	
-	 @ManyToOne
-	 @JoinColumn(name = "codigo")
-	 private MedicoModel medico;
+
+	@ManyToOne
+	@JoinColumn(name = "codigo")
+	private MedicoModel medico;
 	
 	
 }

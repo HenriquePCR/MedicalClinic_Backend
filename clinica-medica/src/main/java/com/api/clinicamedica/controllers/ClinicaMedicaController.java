@@ -42,7 +42,7 @@ public class ClinicaMedicaController {
 	        BaseDeEnderecosModel baseDeEnderecosModel = new BaseDeEnderecosModel();
 	        BeanUtils.copyProperties(baseDeEnderecoDTO, baseDeEnderecosModel);
 	        //baseDeEnderecosModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
-	        return ResponseEntity.status(HttpStatus.CREATED).body(clinicaMedicaService.save(baseDeEnderecosModel));
+	        return ResponseEntity.status(HttpStatus.CREATED).body(clinicaMedicaService.salvar(baseDeEnderecosModel));
 	    } 
 	    
 	    

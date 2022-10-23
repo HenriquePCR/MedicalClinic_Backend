@@ -7,20 +7,21 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.api.clinicamedica.models.BaseDeEnderecosModel;
-
+import com.api.clinicamedica.models.PacienteModel;
 
 @Service
-public class ClinicaMedicaService {
+public class PacienteService {
 	
+
 	 @PersistenceContext
 	  private EntityManager entityManager;
 
-    @Transactional
-	public BaseDeEnderecosModel salvar(BaseDeEnderecosModel baseDeEnderecosModel) {
-    	
-    	 entityManager.persist(baseDeEnderecosModel);
-    	 
-		return baseDeEnderecosModel;
+   @Transactional
+	public PacienteModel salvar(PacienteModel pacienteModel) {
+   	
+	   entityManager.persist(pacienteModel);
+   	 
+		return pacienteModel;
 	}
 
 }

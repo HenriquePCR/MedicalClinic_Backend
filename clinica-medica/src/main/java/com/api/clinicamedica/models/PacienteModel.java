@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -15,12 +16,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "paciente")
+
 public class PacienteModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo", nullable = false)
 	private PessoaModel pessoa;
 	
