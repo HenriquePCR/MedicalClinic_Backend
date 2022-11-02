@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +21,12 @@ import com.api.clinicamedica.models.PessoaModel;
 import com.api.clinicamedica.services.ClinicaMedicaService;
 import com.api.clinicamedica.services.PacienteService;
 import com.api.clinicamedica.services.PessoaService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/pacinte")
+@RequestMapping("/paciente")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PacienteController {
 	
 	 final PacienteService pacienteService;
@@ -51,6 +54,11 @@ public class PacienteController {
     
 	        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.salvar(pessoaModel));
 	    } 
+	    
+	    @GetMapping
+	    public ResponseEntity<Object> getAllParkingSpots(){
+	        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findAll());
+	    }
 	    
 	    
 

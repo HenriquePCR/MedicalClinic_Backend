@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.api.clinicamedica.models.PessoaModel;
+import com.api.clinicamedica.models.PacienteModel;
 
 @Service
 public class PessoaService {
@@ -24,13 +25,20 @@ public class PessoaService {
 		return pessoaModel;
 	}
 	
+	public List<PacienteModel> findAll() {
+		String jpql = "SELECT p FROM PacienteModel p";
+		TypedQuery<PacienteModel> query = entityManager.createQuery(jpql, PacienteModel.class);
+		List<PacienteModel> test = query.getResultList();
+		return test;
+	}
+
 	public Object getCodigoPessoa(PessoaModel pessoaModel) {
 		String nome = pessoaModel.getNome();
 
-		Query query = entityManager.createNativeQuery("SELECT codigo FROM pessoa WHERE nome =  ?");  
-		query.setParameter(1, nome);  
+		Query query = entityManager.createNativeQuery("SELECT codigo FROM pessoa WHERE nome =  ?");
+		query.setParameter(1, nome);
 		Object test = query.getSingleResult();
- 
+
 		return test;
 	}
 

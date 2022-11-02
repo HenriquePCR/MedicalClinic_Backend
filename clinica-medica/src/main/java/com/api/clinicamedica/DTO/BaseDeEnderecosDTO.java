@@ -21,8 +21,8 @@ public class BaseDeEnderecosDTO {
 	    public String getCEP() {
 			return CEP;
 		}
-		public void setCEP(String cEP) {
-			CEP = cEP;
+		public void setCEP(String cep) {
+			CEP = cep;
 		}
 		public String getLogradouro() {
 			return Logradouro;

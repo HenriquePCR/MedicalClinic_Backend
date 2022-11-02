@@ -11,9 +11,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @SequenceGenerator(name = "CRD_ID", sequenceName = "RTDS_ADSINPUT_SEQ" ,initialValue = 1, allocationSize = 1)
 @Table(name = "Pessoa")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PessoaModel {
 
 	private static final long serialVersionUID = 1L;
@@ -47,10 +50,10 @@ public class PessoaModel {
 	@Column(name = "estado", length = 50, nullable = true)
 	private String estado;
 	
-	@OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "pessoa", fetch = FetchType.EAGER)
 	private FuncionarioModel funcionario;
 	
-	@OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "pessoa", fetch = FetchType.EAGER)
 	private PacienteModel paciente;
 	
 	
