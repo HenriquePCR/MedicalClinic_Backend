@@ -24,13 +24,6 @@ public class PessoaService {
 		entityManager.persist(pessoaModel);
 		return pessoaModel;
 	}
-	
-	public List<PacienteModel> findAll() {
-		String jpql = "SELECT p FROM PacienteModel p";
-		TypedQuery<PacienteModel> query = entityManager.createQuery(jpql, PacienteModel.class);
-		List<PacienteModel> test = query.getResultList();
-		return test;
-	}
 
 	public Object getCodigoPessoa(PessoaModel pessoaModel) {
 		String nome = pessoaModel.getNome();

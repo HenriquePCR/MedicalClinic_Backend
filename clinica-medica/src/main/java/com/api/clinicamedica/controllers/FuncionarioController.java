@@ -14,51 +14,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.clinicamedica.DTO.BaseDeEnderecosDTO;
+import com.api.clinicamedica.DTO.PessoaFuncionarioMedicoDTO;
 import com.api.clinicamedica.DTO.PessoaPacienteDTO;
 import com.api.clinicamedica.models.BaseDeEnderecosModel;
+import com.api.clinicamedica.models.FuncionarioModel;
+import com.api.clinicamedica.models.MedicoModel;
 import com.api.clinicamedica.models.PacienteModel;
 import com.api.clinicamedica.models.PessoaModel;
 import com.api.clinicamedica.services.ClinicaMedicaService;
+import com.api.clinicamedica.services.FuncionarioService;
 import com.api.clinicamedica.services.PacienteService;
 import com.api.clinicamedica.services.PessoaService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/paciente")
+@RequestMapping("/funcionario")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class PacienteController {
+public class FuncionarioController {
 	
-	 final PacienteService pacienteService;
+	 final FuncionarioService funcionarioService;
 	 final PessoaService pessoaService;
 
-	  public PacienteController(PacienteService pacienteService, PessoaService pessoaService) {
-	        this.pacienteService = pacienteService;
+	  public FuncionarioController(FuncionarioService funcionarioService, PessoaService pessoaService) {
+	        this.funcionarioService = funcionarioService;
 			this.pessoaService = pessoaService;
 	    }
 	    
 
 	    @PostMapping
-	    public ResponseEntity<Object> savePaciente(@RequestBody @Valid PessoaPacienteDTO pessoaPacienteDTO){
+	    public ResponseEntity<Object> saveFuncionario(@RequestBody @Valid PessoaFuncionarioMedicoDTO pessoaFuncionarioMedicoDTO){
 
-	        PacienteModel pacienteModel = new PacienteModel();
+	        FuncionarioModel funcionarioModel = new FuncionarioModel();
 	        PessoaModel pessoaModel = new PessoaModel();
+	        MedicoModel medicoModel = new MedicoModel();
 	        
-	        BeanUtils.copyProperties(pessoaPacienteDTO, pacienteModel);
-	        BeanUtils.copyProperties(pessoaPacienteDTO, pessoaModel);
-	     
-	        pessoaService.salvar(pessoaModel);
+	        BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, funcionarioModel);
+	        BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, pessoaModel);
+	        BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, medicoModel);
+	     //continuar
+	        //pessoaService.salvar(pessoaModel);
 	       // Object codigo = pessoaService.getCodigoPessoa(pessoaModel);
-	        pacienteModel.setPessoa(pessoaModel);
-	        pacienteService.salvar(pacienteModel);
+	        //pacienteModel.setPessoa(pessoaModel);
+	       // pacienteService.salvar(pacienteModel);
     
 	        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.salvar(pessoaModel));
 	    } 
 	    
-	    @GetMapping
-	    public ResponseEntity<Object> getAll(){
-	        return ResponseEntity.status(HttpStatus.OK).body(pacienteService.findAll());
-	    }
+	   // @GetMapping
+	   // public ResponseEntity<Object> getAllParkingSpots(){
+	        //return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findAll());
+	   // }
 	    
 	    
 

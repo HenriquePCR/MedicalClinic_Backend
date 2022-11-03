@@ -10,25 +10,28 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.api.clinicamedica.models.BaseDeEnderecosModel;
+import com.api.clinicamedica.models.FuncionarioModel;
 import com.api.clinicamedica.models.PacienteModel;
 
 @Service
-public class PacienteService {
+public class FuncionarioService {
 	
 
 	 @PersistenceContext
 	  private EntityManager entityManager;
 
    @Transactional
-	public PacienteModel salvar(PacienteModel pacienteModel) {
-	   entityManager.persist(pacienteModel);
-		return pacienteModel;
+	public FuncionarioModel salvar(FuncionarioModel funcionarioModel) {
+   	
+	   entityManager.persist(funcionarioModel);
+	   
+		return funcionarioModel;
 	}
    
-   public List<PacienteModel> findAll() {
-		String jpql = "SELECT p FROM PacienteModel p";
-		TypedQuery<PacienteModel> query = entityManager.createQuery(jpql, PacienteModel.class);
-		List<PacienteModel> test = query.getResultList();
+   public List<FuncionarioModel> findAll() {
+		String jpql = "SELECT p FROM FuncionarioModel p";
+		TypedQuery<FuncionarioModel> query = entityManager.createQuery(jpql, FuncionarioModel.class);
+		List<FuncionarioModel> test = query.getResultList();
 		return test;
 	}
 
