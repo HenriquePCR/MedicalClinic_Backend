@@ -25,13 +25,13 @@ public class FuncionarioModel implements Serializable {
 	private PessoaModel pessoa;
 	
 	@Column(name = "data_contrato", nullable = true, length = 50)
-	private LocalDate data_contrato;
+	private LocalDate dataContrato;
 	
 	@Column(name = "salario", nullable = true, length = 50)
 	private String salario;
 	
 	@Column(name = "senha_hash", length = 14, nullable = true)
-	private String senha;
+	private String senhaHash;
 
 	public PessoaModel getPessoa() {
 		return pessoa;
@@ -42,11 +42,11 @@ public class FuncionarioModel implements Serializable {
 	}
 
 	public LocalDate getData_contrato() {
-		return data_contrato;
+		return dataContrato;
 	}
 
-	public void setData_contrato(LocalDate data_contrato) {
-		this.data_contrato = data_contrato;
+	public void setData_contrato(LocalDate dataContrato) {
+		this.dataContrato = dataContrato;
 	}
 
 	public String getSalario() {
@@ -58,11 +58,11 @@ public class FuncionarioModel implements Serializable {
 	}
 
 	public String getSenha() {
-		return senha;
+		return senhaHash;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setSenha(String senhaHash) {
+		this.senhaHash = senhaHash;
 	}
 	
 	

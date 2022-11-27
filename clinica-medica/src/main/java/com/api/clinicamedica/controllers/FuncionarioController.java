@@ -13,17 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.clinicamedica.DTO.BaseDeEnderecosDTO;
 import com.api.clinicamedica.DTO.PessoaFuncionarioMedicoDTO;
-import com.api.clinicamedica.DTO.PessoaPacienteDTO;
-import com.api.clinicamedica.models.BaseDeEnderecosModel;
 import com.api.clinicamedica.models.FuncionarioModel;
 import com.api.clinicamedica.models.MedicoModel;
-import com.api.clinicamedica.models.PacienteModel;
 import com.api.clinicamedica.models.PessoaModel;
-import com.api.clinicamedica.services.ClinicaMedicaService;
 import com.api.clinicamedica.services.FuncionarioService;
-import com.api.clinicamedica.services.PacienteService;
+import com.api.clinicamedica.services.MedicoService;
 import com.api.clinicamedica.services.PessoaService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -35,10 +30,12 @@ public class FuncionarioController {
 	
 	 final FuncionarioService funcionarioService;
 	 final PessoaService pessoaService;
+	 final MedicoService medicoService;
 
-	  public FuncionarioController(FuncionarioService funcionarioService, PessoaService pessoaService) {
+	  public FuncionarioController(FuncionarioService funcionarioService, PessoaService pessoaService, MedicoService medicoService) {
 	        this.funcionarioService = funcionarioService;
 			this.pessoaService = pessoaService;
+			this.medicoService = medicoService;
 	    }
 	    
 
@@ -52,19 +49,22 @@ public class FuncionarioController {
 	        BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, funcionarioModel);
 	        BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, pessoaModel);
 	        BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, medicoModel);
-	     //continuar
-	        //pessoaService.salvar(pessoaModel);
-	       // Object codigo = pessoaService.getCodigoPessoa(pessoaModel);
-	        //pacienteModel.setPessoa(pessoaModel);
-	       // pacienteService.salvar(pacienteModel);
+
+	        pessoaService.salvar(pessoaModel);
+	        funcionarioModel.setPessoa(pessoaModel);
+	        funcionarioService.salvar(funcionarioModel);
+	        if(medicoModel.getCrm() != null) {
+	        medicoModel.setPessoa(funcionarioModel);
+	        medicoService.salvar(medicoModel);
+	        }
     
-	        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.salvar(pessoaModel));
+	        return ResponseEntity.status(HttpStatus.CREATED).body("salvou com sucesso");
 	    } 
 	    
-	   // @GetMapping
-	   // public ResponseEntity<Object> getAllParkingSpots(){
-	        //return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findAll());
-	   // }
+	    @GetMapping
+	    public ResponseEntity<Object> getAll(){
+	        return ResponseEntity.status(HttpStatus.OK).body(funcionarioService.findAll());
+	    }
 	    
 	    
 

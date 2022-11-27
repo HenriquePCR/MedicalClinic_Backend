@@ -4,20 +4,19 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class PessoaFuncionarioMedicoDTO {
 
 	private Long codigo;
 
-	@NotBlank
+	@NotNull
 	private LocalDate dataContrato;
 	@NotBlank
 	private String salario;
 	@NotBlank
 	private String senhaHash;
-	@NotBlank
 	private String especialidade;
-	@NotBlank
 	private String crm;
 	@NotBlank
 	private String nome;

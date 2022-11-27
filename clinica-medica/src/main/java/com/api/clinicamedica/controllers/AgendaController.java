@@ -24,21 +24,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/paciente")
+@RequestMapping("/agenda")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class PacienteController {
+public class AgendaController {
 	
 	 final PacienteService pacienteService;
 	 final PessoaService pessoaService;
 
-	  public PacienteController(PacienteService pacienteService, PessoaService pessoaService) {
+	  public AgendaController(PacienteService pacienteService, PessoaService pessoaService) {
 	        this.pacienteService = pacienteService;
 			this.pessoaService = pessoaService;
 	    }
 	    
 
 	    @PostMapping
-	    public ResponseEntity<Object> savePaciente(@RequestBody @Valid PessoaPacienteDTO pessoaPacienteDTO){
+	    public ResponseEntity<Object> saveAgenda(@RequestBody @Valid PessoaPacienteDTO pessoaPacienteDTO){
 
 	        PacienteModel pacienteModel = new PacienteModel();
 	        PessoaModel pessoaModel = new PessoaModel();

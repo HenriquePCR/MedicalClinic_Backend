@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.clinicamedica.DTO.BaseDeEnderecosDTO;
 import com.api.clinicamedica.models.BaseDeEnderecosModel;
-import com.api.clinicamedica.services.ClinicaMedicaService;
+import com.api.clinicamedica.services.EnderecoService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/clinica-medica")
-public class ClinicaMedicaController {
+@RequestMapping("/endereco")
+public class EnderecoController {
 	
-	 final ClinicaMedicaService clinicaMedicaService;
+	 final EnderecoService enderecoService;
 
-	    public ClinicaMedicaController(ClinicaMedicaService clinicaMedicaService) {
-	        this.clinicaMedicaService = clinicaMedicaService;
+	    public EnderecoController(EnderecoService enderecoService) {
+	        this.enderecoService = enderecoService;
 	    }
 	    
 	    @PostMapping
@@ -33,8 +34,13 @@ public class ClinicaMedicaController {
 	        BaseDeEnderecosModel baseDeEnderecosModel = new BaseDeEnderecosModel();
 	        BeanUtils.copyProperties(baseDeEnderecoDTO, baseDeEnderecosModel);
 	        
-	        return ResponseEntity.status(HttpStatus.CREATED).body(clinicaMedicaService.salvar(baseDeEnderecosModel));
+	        return ResponseEntity.status(HttpStatus.CREATED).body(enderecoService.salvar(baseDeEnderecosModel));
 	    } 
+	    
+	    @GetMapping
+	    public ResponseEntity<Object> getAll(){
+	        return ResponseEntity.status(HttpStatus.OK).body(enderecoService.findAll());
+	    }
 	    
 	    
 
