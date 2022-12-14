@@ -49,9 +49,8 @@ public class PacienteController {
 	        pessoaService.salvar(pessoaModel);
 	       // Object codigo = pessoaService.getCodigoPessoa(pessoaModel);
 	        pacienteModel.setPessoa(pessoaModel);
-	        pacienteService.salvar(pacienteModel);
     
-	        return ResponseEntity.status(HttpStatus.CREATED).body("salvou com sucesso");
+	        return ResponseEntity.status(HttpStatus.CREATED).body( pacienteService.salvar(pacienteModel));
 	    } 
 	    
 	    @GetMapping

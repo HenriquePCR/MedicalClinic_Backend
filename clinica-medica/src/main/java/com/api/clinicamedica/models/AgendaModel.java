@@ -16,9 +16,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "agenda")
 @SequenceGenerator(name = "SEQ_AGENDA", sequenceName = "SEQ" ,initialValue = 1, allocationSize = 1)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AgendaModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -46,6 +49,62 @@ public class AgendaModel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "codigo")
 	private MedicoModel medico;
+	
+	public Long getCodigo_medico() {
+		return codigo_medico;
+	}
+
+	public void setCodigo_medico(Long codigo_medico) {
+		this.codigo_medico = codigo_medico;
+	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public MedicoModel getMedico() {
+		return medico;
+	}
+
+	public void setMedico(MedicoModel medico) {
+		this.medico = medico;
+	}
 	
 	
 }

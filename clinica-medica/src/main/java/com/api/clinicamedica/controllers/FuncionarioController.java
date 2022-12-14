@@ -1,6 +1,5 @@
 package com.api.clinicamedica.controllers;
 
-
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -25,47 +24,52 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/funcionario")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class FuncionarioController {
-	
-	 final FuncionarioService funcionarioService;
-	 final PessoaService pessoaService;
-	 final MedicoService medicoService;
 
-	  public FuncionarioController(FuncionarioService funcionarioService, PessoaService pessoaService, MedicoService medicoService) {
-	        this.funcionarioService = funcionarioService;
-			this.pessoaService = pessoaService;
-			this.medicoService = medicoService;
-	    }
-	    
+	final FuncionarioService funcionarioService;
+	final PessoaService pessoaService;
+	final MedicoService medicoService;
 
-	    @PostMapping
-	    public ResponseEntity<Object> saveFuncionario(@RequestBody @Valid PessoaFuncionarioMedicoDTO pessoaFuncionarioMedicoDTO){
+	public FuncionarioController(FuncionarioService funcionarioService, PessoaService pessoaService,
+			MedicoService medicoService) {
+		this.funcionarioService = funcionarioService;
+		this.pessoaService = pessoaService;
+		this.medicoService = medicoService;
+	}
 
-	        FuncionarioModel funcionarioModel = new FuncionarioModel();
-	        PessoaModel pessoaModel = new PessoaModel();
-	        MedicoModel medicoModel = new MedicoModel();
-	        
-	        BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, funcionarioModel);
-	        BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, pessoaModel);
-	        BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, medicoModel);
+	@PostMapping
+	public ResponseEntity<Object> saveFuncionario(
+			@RequestBody @Valid PessoaFuncionarioMedicoDTO pessoaFuncionarioMedicoDTO) {
 
-	        pessoaService.salvar(pessoaModel);
-	        funcionarioModel.setPessoa(pessoaModel);
-	        funcionarioService.salvar(funcionarioModel);
-	        if(medicoModel.getCrm() != null) {
-	        medicoModel.setPessoa(funcionarioModel);
-	        medicoService.salvar(medicoModel);
-	        }
-    
-	        return ResponseEntity.status(HttpStatus.CREATED).body("salvou com sucesso");
-	    } 
-	    
-	    @GetMapping
-	    public ResponseEntity<Object> getAll(){
-	        return ResponseEntity.status(HttpStatus.OK).body(funcionarioService.findAll());
-	    }
-	    
-	    
+		FuncionarioModel funcionarioModel = new FuncionarioModel();
+		PessoaModel pessoaModel = new PessoaModel();
+		MedicoModel medicoModel = new MedicoModel();
+
+		BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, funcionarioModel);
+		BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, pessoaModel);
+		BeanUtils.copyProperties(pessoaFuncionarioMedicoDTO, medicoModel);
+
+		if (medicoModel.getCrm() != null) {
+			pessoaService.salvar(pessoaModel);
+			funcionarioModel.setPessoa(pessoaModel);
+			funcionarioService.salvar(funcionarioModel);
+
+			medicoModel.setPessoa(funcionarioModel);
+			return ResponseEntity.status(HttpStatus.CREATED).body(medicoService.salvar(medicoModel));
+		} else {
+			pessoaService.salvar(pessoaModel);
+			funcionarioModel.setPessoa(pessoaModel);
+
+			return ResponseEntity.status(HttpStatus.CREATED).body(funcionarioService.salvar(funcionarioModel));
+
+		}
+
+	}
+
+	@GetMapping
+	public ResponseEntity<Object> getAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(funcionarioService.findAll());
+	}
 
 }

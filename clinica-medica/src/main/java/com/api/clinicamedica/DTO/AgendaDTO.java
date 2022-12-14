@@ -9,17 +9,12 @@ import javax.validation.constraints.NotNull;
 
 public class AgendaDTO {
 	
-	
-		@NotNull
+		private Long codigo;
 	    private LocalDate data;
-	    @NotBlank
 	    private String horario;
-	    @NotBlank
 	    private String nome;
-	    @NotBlank
-	    private String email;
-	    @NotBlank
-		private String telefone;
+
+	    
 		public LocalDate getData() {
 			return data;
 		}
@@ -38,19 +33,11 @@ public class AgendaDTO {
 		public void setNome(String nome) {
 			this.nome = nome;
 		}
-		public String getEmail() {
-			return email;
+		public Long getCodigo() {
+			return codigo;
 		}
-		public void setEmail(String email) {
-			this.email = email;
+		public void setCodigo(Long codigo) {
+			this.codigo = codigo;
 		}
-		public String getTelefone() {
-			return telefone;
-		}
-		public void setTelefone(String telefone) {
-			this.telefone = telefone;
-		}
-	    
-	   
-	   
+
 }

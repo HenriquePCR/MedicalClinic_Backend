@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.api.clinicamedica.models.BaseDeEnderecosModel;
 import com.api.clinicamedica.models.PacienteModel;
@@ -44,6 +45,9 @@ public class PacienteService {
 		
 		Object test = query.getResultList();
 		
+		if(ObjectUtils.isEmpty(test)) {
+			return "Não";
+		}
 		return test;
 	}
 
